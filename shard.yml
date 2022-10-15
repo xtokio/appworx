@@ -1,0 +1,26 @@
+name: appworx
+version: 0.1.0
+
+authors:
+  - Luis Gomez <xtokio@gmail.com>
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+  kemal-session:
+    github: kemalcr/kemal-session
+  schedule:
+    github: xtokio/schedule
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+  crecto:
+    github: xtokio/crecto
+    branch: master
+
+targets:
+  appworx:
+    main: src/appworx.cr
+
+crystal: 1.6.0
+
+license: MIT
