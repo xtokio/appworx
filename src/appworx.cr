@@ -32,9 +32,39 @@ module Appworx
   VERSION = "0.1.0"
 
   # TODO: Put your code here
+  Kemal::Session.config.secret = "9e7abe8ae041296820a0b69ef0e4a397c87f5866f454d35d432840bc98cfd789439addc260bb6f9a058e88faa7e4a4e416e39d05273f459dd3373dc6387cf69c"
+    
+  static_headers do |response, filepath, filestat|
+    response.headers.add("Cache-control", "public")
+    response.headers.add("Cache-control", "max-age=31557600")
+    response.headers.add("Cache-control", "s-max-age=31557600")
+    response.headers.add("Content-Size", filestat.size.to_s)
+  end
+
+  error 404 do
+    error_code = "404"
+    error_message = "Page / Resource not found"
+    render "src/views/error_page.ecr"
+  end
+
+  error 500 do
+    error_code = "500"
+    error_message = "Server error"
+    render "src/views/error_page.ecr"
+  end
+
   Schedule.every(10.seconds) do
     Controller::Jobs.run(1)
     # puts "Hello! - #{Time.local}"
+  end
+
+  get "/" do |env|
+    if Controller::Application.user_logged(env)
+
+      render "src/views/dashboard/index.ecr", "src/layouts/base.ecr"
+    else
+      env.redirect "/login"
+    end
   end
 
 end
