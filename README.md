@@ -3,9 +3,9 @@
 Scheduling tool made in Crystal Lang to run console commands.
 #### Todo:
 1. Dashboard interface
-<br>
-<br>
+
 ## Installation
+
 ```shards install```
 
 ```crystal build src/appworx.cr --release```
