@@ -7,10 +7,10 @@ module Model
             field :task, String
             field :description, String
             field :language, String
-            field :code, String
+            field :command, String
             field :active, Int32
         end
 
-        validate_required [:job_id, :task, :language, :code]
+        validate_required [:job_id, :task, :language, :command]
     end
 end

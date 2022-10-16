@@ -20,7 +20,7 @@ module Controller
       # Search for job tasks
       tasks = Controller::Tasks.get_by_job_id(job_id)
       tasks.each do |task|
-        command = task.code||""
+        command = task.command||""
         puts "Executing Task : #{task.description}"
         # Execute task
         status, output = execute_task(command)

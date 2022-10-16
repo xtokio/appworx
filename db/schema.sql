@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS "tasks" (
   "task"	TEXT NOT NULL DEFAULT '',
   "description"	TEXT NOT NULL DEFAULT '',
   "language"	TEXT NOT NULL DEFAULT '',
-  "code"	TEXT NOT NULL DEFAULT '',
+  "command"	TEXT NOT NULL DEFAULT '',
   "active"	INTEGER NOT NULL DEFAULT 1,
   "created_at"	TEXT NOT NULL DEFAULT '',
   "updated_at"	TEXT NOT NULL DEFAULT ''
@@ -41,5 +41,10 @@ CREATE TABLE IF NOT EXISTS "task_status" (
   "created_at"	TEXT NOT NULL DEFAULT '',
   "updated_at"	TEXT NOT NULL DEFAULT ''
 );
+
+CREATE VIEW view_tasks AS
+SELECT tasks.id,tasks.job_id,jobs.job,tasks.task,tasks.description,tasks.language,tasks.command,tasks.active,tasks.created_at,tasks.updated_at
+FROM tasks,jobs
+WHERE tasks.job_id = jobs.id;
 
 COMMIT;
