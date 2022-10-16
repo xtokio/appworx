@@ -60,7 +60,7 @@ module Appworx
 
   get "/" do |env|
     if Controller::Application.user_logged(env)
-
+      jobs = Controller::Jobs.active()
       render "src/views/dashboard/index.ecr", "src/layouts/base.ecr"
     else
       env.redirect "/login"

@@ -7,10 +7,10 @@ module Model
             field :job, String
             field :description, String
             field :schedule, String
-            field :schedule_type, String
+            field :schedule_time, String
             field :active, Int32
         end
 
-        validate_required [:user_id, :job, :schedule, :schedule_type]
+        validate_required [:user_id, :job, :schedule, :schedule_time]
     end
 end
