@@ -30,6 +30,10 @@ module Controller
             end
         end
 
+        def get_by_id(id : String)
+            Model::ConnDB.all(Model::User, Query.where(id: id))
+        end
+
         def create(env)
             username     = env.params.json["username"].as(String)
             password     = env.params.json["password"].as(String)
@@ -51,11 +55,11 @@ module Controller
 
         def update(env)
             id           = env.params.json["id"].as(String)
-            username     = env.params.json["user"].as(String)
+            username     = env.params.json["username"].as(String)
             password     = env.params.json["password"].as(String)
             name         = env.params.json["name"].as(String)
             account_type = env.params.json["account_type"].as(String)
-            active     = env.params.json["active"].as(String)
+            active       = env.params.json["active"].as(String)
 
             user_record = Model::ConnDB.get!(Model::User, id)
             user_record.username     = username

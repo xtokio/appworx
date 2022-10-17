@@ -1,0 +1,46 @@
+<h3>Settings > <a href="#" data-load-link="load" data-link="/users">Users</a> > Update</h3>
+
+<label for="txt_user" style="display: block; margin-bottom: 5px;">User</label>
+<input type="text" id="txt_user" placeholder="User" value="<%= user[0].username %>" style="margin-bottom: 10px;">
+
+<label for="txt_password" style="display: block; margin-bottom: 5px;">Password</label>
+<input type="text" id="txt_password" placeholder="Password" value="<%= user[0].password %>" style="margin-bottom: 10px;">
+
+<label for="txt_name" style="display: block; margin-bottom: 5px;">Name</label>
+<input type="text" id="txt_name" placeholder="Full name" value="<%= user[0].name %>" style="margin-bottom: 10px;">
+
+<label for="cmb_account_type" style="display: block; margin-bottom: 5px;">Account Type</label>
+<select id="cmb_account_type">
+  <option value="Administrator" <% if user[0].account_type == "Administrator" %> selected <% end %>>Administrator</option>
+  <option value="User" <% if user[0].account_type == "User" %> selected <% end %>>User</option>
+</select>
+
+<label for="cmb_active" style="display: block; margin-bottom: 5px;">Active</label>
+<select id="cmb_active">
+  <option value="1" <% if user[0].active == 1 %> selected <% end %>>On</option>
+  <option value="0" <% if user[0].active == 0 %> selected <% end %>>Off</option>
+</select>
+
+<div style="text-align: right;">
+    <button id="btn_update" class="btn btn-primary" data-id="<%= user[0].id %>" style="width: 120px;">Update</button>
+</div>
+
+<script>
+  $("#btn_update").on("click", async function(){
+    let id           = $(this).attr("data-id");
+    let username     = $("#txt_user").val();
+    let password     = $("#txt_password").val();
+    let name         = $("#txt_name").val();
+    let account_type = $("#cmb_account_type").val();
+    let active       = $("#cmb_active").val();
+    let params = {id,username,password,name,account_type,active};
+
+    let response = await App.post("/users/update",params).catch(message => App.show_error(message));
+    let data = await response.json();
+    
+    if(data.status == "OK")
+      $("#lnk_menu_settings_users").trigger("click");
+    else
+      App.show_error("Update error.");
+  });
+</script>
