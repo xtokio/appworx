@@ -1,7 +1,7 @@
 # Appworx
 
 Scheduling tool made in Crystal Lang to run console commands.
-#### Todo:
+#### Work In Progress:
 1. Dashboard interface
 
 ## Installation

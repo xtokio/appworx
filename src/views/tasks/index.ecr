@@ -1,6 +1,9 @@
 <div>
   <% if tasks.size > 0 %>
-  <h3>Job [<span style="color: #0c5df4"><%= tasks[0].job %></span>] > Tasks [<span style="color: #0c5df4"><%= tasks.size %></span>]</h3>
+  <h3> <span style="color: #0c5df4; cursor: pointer;" data-load-link="load" data-link="/jobs"><%= tasks[0].job %></span> > Tasks [<span style="color: #0c5df4"><%= tasks.size %></span>]</h3>
+  <div style="text-align: right; margin-bottom: 20px;">
+    <a href="#" id="btn_add" class="btn btn-primary" data-load-link="load" data-link="/tasks/new/<%= id %>" style="width: 120px; margin-bottom: 15px;">Add new Task</a>
+  </div>
   <table id="tasks_table" class="styled-table">
       <thead>
         <tr>
@@ -25,7 +28,7 @@
           <td><%= Time.parse!(row.created_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td><%= Time.parse!(row.updated_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td>
-            <a href="#">Update</a> | <a href="#" style="color: red">Remove</a>
+            <a href="#" data-load-link="load" data-link="/tasks/update/<%= row.id %>">Update</a> | <a href="#" style="color: red">Remove</a>
           </td>
         </tr>
       <% end %>
@@ -33,5 +36,8 @@
   </table>
   <% else %>
   <h3>No tasks were found [<span style="color: #0c5df4">0</span>]</h3>
+  <div style="text-align: right; margin-bottom: 20px;">
+    <a href="#" id="btn_add" class="btn btn-primary" data-load-link="load" data-link="/tasks/new/<%= id %>" style="width: 120px; margin-bottom: 15px;">Add new Task</a>
+  </div>
   <% end %>
 </div>

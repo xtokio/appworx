@@ -1,19 +1,21 @@
-<h3>Settings > <a href="#" data-load-link="load" data-link="/users">Users</a> > New</h3>
+<h3> <a href="#" data-load-link="load" data-link="/jobs">Jobs</a> > Task > New</h3>
 
-<label for="txt_user" style="display: block; margin-bottom: 5px;">User</label>
-<input type="text" id="txt_user" placeholder="User" style="margin-bottom: 10px;">
+<label for="txt_task" style="display: block; margin-bottom: 5px;">Task</label>
+<input type="text" id="txt_task" placeholder="Task" style="margin-bottom: 10px;">
 
-<label for="txt_password" style="display: block; margin-bottom: 5px;">Password</label>
-<input type="text" placeholder="Password" id="txt_password" style="margin-bottom: 10px;">
+<label for="txt_description" style="display: block; margin-bottom: 5px;">Description</label>
+<input type="text" placeholder="Description" id="txt_description" style="margin-bottom: 10px;">
 
-<label for="txt_name" style="display: block; margin-bottom: 5px;">Name</label>
-<input type="text" placeholder="Full name" id="txt_name" style="margin-bottom: 10px;">
-
-<label for="cmb_account_type" style="display: block; margin-bottom: 5px;">Account Type</label>
-<select id="cmb_account_type">
-  <option value="Administrator">Administrator</option>
-  <option value="User">User</option>
+<label for="cmb_language" style="display: block; margin-bottom: 5px;">Language</label>
+<select id="cmb_language">
+  <option value="BASH">Bash</option>
+  <option value="Python">Python</option>
+  <option value="Ruby">Ruby</option>
+  <option value="Java">Java</option>
 </select>
+
+<label for="txt_command" style="display: block; margin-bottom: 5px;">Command</label>
+<input type="text" placeholder="Command" id="txt_command" style="margin-bottom: 10px;">
 
 <label for="cmb_active" style="display: block; margin-bottom: 5px;">Active</label>
 <select id="cmb_active">
@@ -27,18 +29,23 @@
 
 <script>
   $("#btn_new").on("click", async function(){
-    let username     = $("#txt_user").val();
-    let password     = $("#txt_password").val();
-    let name         = $("#txt_name").val();
-    let account_type = $("#cmb_account_type").val();
-    let active       = $("#cmb_active").val();
-    let params = {username,password,name,account_type,active};
+    let job_id      = <%= job_id %>;
+    let task        = $("#txt_task").val();
+    let description = $("#txt_description").val();
+    let language    = $("#cmb_language").val();
+    let command     = $("#txt_command").val();
+    let active      = $("#cmb_active").val();
+    let params = {job_id,task,description,language,command,active};
 
-    let response = await App.post("/users/new",params).catch(message => App.show_error(message));
+    let response = await App.post("/tasks/new",params).catch(message => App.show_error(message));
     let data = await response.json();
     
     if(data.status == "OK")
-      $("#lnk_menu_settings_users").trigger("click");
+      App.show_success(data.message,async function(){
+        let link = "/jobs/"+job_id+"/tasks";
+        await App.load_page(link).catch(message => App.show_error(message));
+        window.history.pushState({}, null, "/");
+      });
     else
       App.show_error("Update error.");
   });

@@ -54,7 +54,7 @@ module Appworx
   end
 
   Schedule.every(10.seconds) do
-    # Controller::Jobs.run(1)
+    Controller::Jobs.run(1)
     # puts "Hello! - #{Time.local}"
   end
 

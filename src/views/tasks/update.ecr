@@ -1,45 +1,52 @@
-<h3>Settings > <a href="#" data-load-link="load" data-link="/users">Users</a> > Update</h3>
+<h3> <a href="#" data-load-link="load" data-link="/jobs/<%= task[0].job_id %>/tasks">Jobs</a> > Task > New</h3>
 
-<label for="txt_user" style="display: block; margin-bottom: 5px;">User</label>
-<input type="text" id="txt_user" placeholder="User" value="<%= user[0].username %>" style="margin-bottom: 10px;">
+<label for="txt_task" style="display: block; margin-bottom: 5px;">Task</label>
+<input type="text" id="txt_task" placeholder="Task" value="<%= task[0].task %>" style="margin-bottom: 10px;">
 
-<label for="txt_password" style="display: block; margin-bottom: 5px;">Password</label>
-<input type="text" id="txt_password" placeholder="Password" value="<%= user[0].password %>" style="margin-bottom: 10px;">
+<label for="txt_description" style="display: block; margin-bottom: 5px;">Description</label>
+<input type="text" id="txt_description" placeholder="Description" value="<%= task[0].description %>" style="margin-bottom: 10px;">
 
-<label for="txt_name" style="display: block; margin-bottom: 5px;">Name</label>
-<input type="text" id="txt_name" placeholder="Full name" value="<%= user[0].name %>" style="margin-bottom: 10px;">
-
-<label for="cmb_account_type" style="display: block; margin-bottom: 5px;">Account Type</label>
-<select id="cmb_account_type">
-  <option value="Administrator" <% if user[0].account_type == "Administrator" %> selected <% end %>>Administrator</option>
-  <option value="User" <% if user[0].account_type == "User" %> selected <% end %>>User</option>
+<label for="cmb_language" style="display: block; margin-bottom: 5px;">Language</label>
+<select id="cmb_language">
+  <option value="BASH" <% if task[0].language == "BASH" %> selected <% end %>>BASH</option>
+  <option value="Python" <% if task[0].language == "Python" %> selected <% end %>>Python</option>
+  <option value="Ruby" <% if task[0].language == "Ruby" %> selected <% end %>>Ruby</option>
+  <option value="Java" <% if task[0].language == "Java" %> selected <% end %>>Java</option>
 </select>
+
+<label for="txt_command" style="display: block; margin-bottom: 5px;">Command</label>
+<input type="text" id="txt_command" placeholder="Command" value="<%= task[0].command %>" style="margin-bottom: 10px;">
 
 <label for="cmb_active" style="display: block; margin-bottom: 5px;">Active</label>
 <select id="cmb_active">
-  <option value="1" <% if user[0].active == 1 %> selected <% end %>>On</option>
-  <option value="0" <% if user[0].active == 0 %> selected <% end %>>Off</option>
+  <option value="1" <% if task[0].active == 1 %> selected <% end %>>On</option>
+  <option value="0" <% if task[0].active == 0 %> selected <% end %>>Off</option>
 </select>
 
 <div style="text-align: right;">
-    <button id="btn_update" class="btn btn-primary" data-id="<%= user[0].id %>" style="width: 120px;">Update</button>
+    <button id="btn_update" class="btn btn-primary" data-id="<%= task[0].id %>" style="width: 120px;">Update</button>
 </div>
 
 <script>
   $("#btn_update").on("click", async function(){
-    let id           = $(this).attr("data-id");
-    let username     = $("#txt_user").val();
-    let password     = $("#txt_password").val();
-    let name         = $("#txt_name").val();
-    let account_type = $("#cmb_account_type").val();
-    let active       = $("#cmb_active").val();
-    let params = {id,username,password,name,account_type,active};
+    let id          = $(this).attr("data-id");
+    let job_id      = <%= task[0].job_id %>;
+    let task        = $("#txt_task").val();
+    let description = $("#txt_description").val();
+    let command     = $("#txt_command").val();
+    let language    = $("#cmb_language").val();
+    let active      = $("#cmb_active").val();
+    let params = {id,job_id,task,description,command,language,active};
 
-    let response = await App.post("/users/update",params).catch(message => App.show_error(message));
+    let response = await App.post("/tasks/update",params).catch(message => App.show_error(message));
     let data = await response.json();
     
     if(data.status == "OK")
-      $("#lnk_menu_settings_users").trigger("click");
+      App.show_success(data.message,async function(){
+        let link = "/jobs/"+job_id+"/tasks";
+        await App.load_page(link).catch(message => App.show_error(message));
+        window.history.pushState({}, null, "/");
+      });
     else
       App.show_error("Update error.");
   });
