@@ -25,7 +25,7 @@
           <td><%= Time.parse!(row.created_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td><%= Time.parse!(row.updated_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td>
-            <a href="#">Update</a> | <a href="#">Remove</a>
+            <a href="#">Update</a> | <a href="#" style="color: red">Remove</a>
           </td>
         </tr>
       <% end %>

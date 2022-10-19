@@ -16,6 +16,47 @@ module Controller
       Model::ConnDB.all(Model::Job, Query.where(id: id))
     end
 
+    def create(env)
+      job           = env.params.json["job"].as(String)
+      description   = env.params.json["description"].as(String)
+      schedule      = env.params.json["schedule"].as(String)
+      schedule_time = env.params.json["schedule_time"].as(String)
+      active        = env.params.json["active"].as(String)
+      
+      table_record = Model::Job.new
+      table_record.job           = job
+      table_record.description   = description
+      table_record.schedule      = schedule
+      table_record.schedule_time = schedule_time
+      table_record.active        = active.to_i
+      table_record.user_id       = env.session.string("user_id").to_i
+      changeset = Model::ConnDB.insert(table_record)
+
+      job_id = changeset.instance.id
+
+      {status: "OK",id: job_id, message: "Job : #{job_id} was created."}.to_json
+    end
+
+    def update(env)
+      id            = env.params.json["id"].as(String)
+      job   = env.params.json["job"].as(String)
+      description   = env.params.json["description"].as(String)
+      schedule      = env.params.json["schedule"].as(String)
+      schedule_time = env.params.json["schedule_time"].as(String)
+      active        = env.params.json["active"].as(String)
+
+      table_record = Model::ConnDB.get!(Model::Job, id)
+      table_record.job           = job
+      table_record.description   = description
+      table_record.schedule      = schedule
+      table_record.schedule_time = schedule_time
+      table_record.active        = active.to_i
+      table_record.user_id       = env.session.string("user_id").to_i
+      changeset = Model::ConnDB.update(table_record)
+
+      {status: "OK",id: id, message: "Job : #{id} was updated."}.to_json
+    end
+
     def run(job_id : Int32)
       # Search for job tasks
       tasks = Controller::Tasks.get_by_job_id(job_id)
