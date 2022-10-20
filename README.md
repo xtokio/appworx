@@ -2,7 +2,23 @@
 
 Scheduling tool made in Crystal Lang to run console commands.
 #### Work In Progress:
-1. Dashboard interface
+1. Dashboard interface - Done.
+2. Schedule jobs in the background
+
+#### Screenshots
+
+Login page
+![Login](screenshots/login.png)
+
+Dashboard > Jobs
+![Jobs](screenshots/jobs.png)
+
+Dashboard > Tasks
+![Tasks](screenshots/tasks.png)
+
+Settings > Users
+![Users](screenshots/users.png)
+
 
 ## Installation
 
