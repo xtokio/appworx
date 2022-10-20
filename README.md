@@ -8,6 +8,11 @@ Scheduling tool made in Crystal Lang to run console commands.
 #### Screenshots
 
 Login page
+<br>
+User: `admin`
+<br>
+Pass: `admin`
+<br><br>
 ![Login](screenshots/login.png)
 
 Dashboard > Jobs
