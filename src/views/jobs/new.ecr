@@ -6,8 +6,10 @@
 <label for="txt_description" style="display: block; margin-bottom: 5px;">Description</label>
 <input type="text" placeholder="Description" id="txt_description" style="margin-bottom: 10px;">
 
-<label for="txt_schedule" style="display: block; margin-bottom: 5px;">Schedule</label>
-<input type="text" placeholder="Schedule" id="txt_schedule" style="margin-bottom: 10px;">
+<label for="cmb_schedule" style="display: block; margin-bottom: 5px;">Schedule</label>
+<select id="cmb_schedule">
+  <option value="Daily">Daily</option>
+</select>
 
 <label for="txt_schedule_time" style="display: block; margin-bottom: 5px;">Schedule Time</label>
 <input type="text" placeholder="Schedule Time" id="txt_schedule_time" style="margin-bottom: 10px;">
@@ -26,7 +28,7 @@
   $("#btn_new").on("click", async function(){
     let job           = $("#txt_job").val();
     let description   = $("#txt_description").val();
-    let schedule      = $("#txt_schedule").val();
+    let schedule      = $("#cmb_schedule").val();
     let schedule_time = $("#txt_schedule_time").val();
     let active        = $("#cmb_active").val();
     let params        = {job,description,schedule,schedule_time,active};

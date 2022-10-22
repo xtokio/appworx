@@ -58,13 +58,20 @@ module Controller
     end
 
     def run(job_id : Int32)
+      puts "Executing Job ID #{job_id}"
       # Search for job tasks
       tasks = Controller::Tasks.get_by_job_id(job_id)
       tasks.each do |task|
         command = task.command||""
         puts "Executing Task : #{task.description}"
+
+        task_status_id = Controller::TaskStatus.create(job_id,task.id || 0,"Queue","")
+        
         # Execute task
         status, output = execute_task(command)
+
+        response_status = status == 0 ? "Done" : "Failed"
+        Controller::TaskStatus.update(task_status_id || 0,response_status,output)
 
         puts "Status: #{status}"
         puts "Response: #{output}"

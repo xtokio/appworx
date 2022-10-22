@@ -6,8 +6,10 @@
 <label for="txt_description" style="display: block; margin-bottom: 5px;">Description</label>
 <input type="text" id="txt_description" placeholder="Description" value="<%= job[0].description %>" style="margin-bottom: 10px;">
 
-<label for="txt_schedule" style="display: block; margin-bottom: 5px;">Schedule</label>
-<input type="text" id="txt_schedule" placeholder="Schedule" value="<%= job[0].schedule %>" style="margin-bottom: 10px;">
+<label for="cmb_schedule" style="display: block; margin-bottom: 5px;">Schedule</label>
+<select id="cmb_schedule">
+  <option value="1" <% if job[0].schedule == "Daily" %> selected <% end %>>Daily</option>
+</select>
 
 <label for="txt_schedule_time" style="display: block; margin-bottom: 5px;">Schedule</label>
 <input type="text" id="txt_schedule_time" placeholder="Schedule Time" value="<%= job[0].schedule_time %>" style="margin-bottom: 10px;">
@@ -27,7 +29,7 @@
     let id           = $(this).attr("data-id");
     let job           = $("#txt_job").val();
     let description   = $("#txt_description").val();
-    let schedule      = $("#txt_schedule").val();
+    let schedule      = $("#cmb_schedule").val();
     let schedule_time = $("#txt_schedule_time").val();
     let active        = $("#cmb_active").val();
     let params        = {id,job,description,schedule,schedule_time,active};

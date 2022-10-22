@@ -5,7 +5,7 @@ module Model
             field :id, Int32, primary_key: true
             field :job_id, Int32
             field :task_id, Int32
-            field :status, Int32
+            field :status, String
             field :response, String
         end
 
