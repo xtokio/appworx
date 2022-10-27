@@ -53,12 +53,24 @@ module Appworx
     render "src/views/error_page.ecr"
   end
 
-  Schedule.every(10.seconds) do
+  # Every 35 seconds to ensure only runs once within the minute
+  Schedule.every(35.seconds) do
     jobs = Controller::Jobs.active()
     jobs.each do |job|
-      spawn Controller::Jobs.run(job.id || 0)
+      current_date = Time.local
+
+      schedule_time_hour = job.schedule_time||""
+      schedule_time_hour = schedule_time_hour.split(":")[0]
+
+      schedule_time_minute = job.schedule_time||""
+      schedule_time_minute = schedule_time_minute.split(":")[1]
+
+      # Run job only if Hour and Minute matches
+      if current_date.hour == schedule_time_hour.to_i && current_date.minute == schedule_time_minute.to_i
+        spawn Controller::Jobs.run(job.id || 0)
+      end
+
     end
-    # puts "Hello! - #{Time.local}"
   end
 
   get "/" do |env|

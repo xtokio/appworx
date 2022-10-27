@@ -44,7 +44,14 @@ CREATE TABLE IF NOT EXISTS "task_status" (
 
 CREATE VIEW view_tasks AS
 SELECT tasks.id,tasks.job_id,jobs.job,tasks.task,tasks.description,tasks.language,tasks.command,tasks.active,tasks.created_at,tasks.updated_at
-FROM tasks,jobs
-WHERE tasks.job_id = jobs.id;
+FROM tasks
+INNER JOIN jobs on tasks.job_id = jobs.id;
+
+CREATE VIEW view_task_status AS
+SELECT task_status.id,task_status.job_id,task_status.task_id,task_status.status,task_status.response,jobs.job,tasks.task,tasks.description,tasks.language,tasks.command,task_status.created_at,task_status.updated_at
+FROM task_status
+INNER JOIN jobs on task_status.job_id = jobs.id
+INNER JOIN tasks on task_status.task_id = tasks.id
+ORDER BY task_status.job_id;
 
 COMMIT;
