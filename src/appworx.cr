@@ -61,16 +61,17 @@ module Appworx
       jobs = Controller::Jobs.active()
       jobs.each do |job|
         current_date = Time.local
-
         schedule_time_hour = job.schedule_time||""
         schedule_time_hour = schedule_time_hour.split(":")[0]
-
         schedule_time_minute = job.schedule_time||""
         schedule_time_minute = schedule_time_minute.split(":")[1]
 
         # Run job only if Hour and Minute matches
         if current_date.hour == schedule_time_hour.to_i && current_date.minute == schedule_time_minute.to_i
-          spawn Controller::Jobs.run(job.id || 0)
+          # Run job only if it's Daily of if it matches the day of the week
+          if job.schedule == "Daily" || job.schedule == current_date.day_of_week.to_s
+            spawn Controller::Jobs.run(job.id || 0)
+          end
         end
 
       end

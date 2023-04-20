@@ -8,7 +8,14 @@
 
 <label for="cmb_schedule" style="display: block; margin-bottom: 5px;">Schedule</label>
 <select id="cmb_schedule">
-  <option value="1" <% if job[0].schedule == "Daily" %> selected <% end %>>Daily</option>
+  <option value="Daily"     <% if job[0].schedule == "Daily" %> selected <% end %>>Daily</option>
+  <option value="Monday"    <% if job[0].schedule == "Monday" %> selected <% end %>>Monday</option>
+  <option value="Tuesday"   <% if job[0].schedule == "Tuesday" %> selected <% end %>>Tuesday</option>
+  <option value="Wednesday" <% if job[0].schedule == "Wednesday" %> selected <% end %>>Wednesday</option>
+  <option value="Thursday"  <% if job[0].schedule == "Thursday" %> selected <% end %>>Thursday</option>
+  <option value="Friday"    <% if job[0].schedule == "Friday" %> selected <% end %>>Friday</option>
+  <option value="Saturday"  <% if job[0].schedule == "Saturday" %> selected <% end %>>Saturday</option>
+  <option value="Sunday"    <% if job[0].schedule == "Sunday" %> selected <% end %>>Sunday</option>
 </select>
 
 <label for="txt_schedule_time" style="display: block; margin-bottom: 5px;">Schedule</label>
