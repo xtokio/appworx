@@ -63,7 +63,7 @@ module Controller
       tasks = Controller::Tasks.get_by_job_id(job_id)
       tasks.each do |task|
         command = task.command||""
-        puts "Executing Task : #{task.description}"
+        puts "Executing Task : #{task.task_description}"
 
         task_status_id = Controller::TaskStatus.create(job_id,task.id || 0,"Queue","")
         

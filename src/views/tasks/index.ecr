@@ -1,8 +1,9 @@
 <div>
   <% if tasks.size > 0 %>
-  <h3> Job > <span style="color: #0c5df4; cursor: pointer;" data-load-link="load" data-link="/jobs"><%= tasks[0].job %></span> > Tasks [<span style="color: #0c5df4"><%= tasks.size %></span>]</h3>
-  <div style="text-align: right; margin-bottom: 20px;">
-    <a href="#" id="btn_add" class="btn btn-primary" data-load-link="load" data-link="/tasks/new/<%= id %>" style="width: 120px; margin-bottom: 15px;">Add new Task</a>
+  <h3> <span style="color: #0c5df4; cursor: pointer;" data-load-link="load" data-link="/jobs">Jobs</span> > Tasks [<span style="color: #0c5df4"><%= tasks.size %></span>]</h3>
+  <div style="margin-bottom: 1rem;">
+    <span style="font-size: 1.2rem;"><%= tasks[0].job %></span><br>
+    <span style="color: dimgray; font-size: 0.9rem;"><%= tasks[0].job_description %></span>
   </div>
   <table id="tasks_table" class="styled-table">
       <thead>
@@ -22,7 +23,7 @@
         <tr>
           <td><%= row.id %></td>
           <td><%= row.task %></td>
-          <td><%= row.description %></td>
+          <td><%= row.task_description %></td>
           <td><%= row.language %></td>
           <td><%= row.command %></td>
           <td><%= Time.parse!(row.created_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
@@ -34,6 +35,7 @@
       <% end %>
       </tbody>
   </table>
+  <a href="#" id="btn_add" class="btn btn-primary" data-load-link="load" data-link="/tasks/new/<%= id %>" style="float: right;">Add new Task</a>
   <% else %>
   <h3>No tasks were found [<span style="color: #0c5df4">0</span>]</h3>
   <div style="text-align: right; margin-bottom: 20px;">
