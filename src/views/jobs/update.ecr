@@ -7,7 +7,7 @@
 <input type="text" id="txt_description" placeholder="Description" value="<%= job[0].description %>" style="margin-bottom: 10px;">
 
 <label for="cmb_schedule" style="display: block; margin-bottom: 5px;">Schedule</label>
-<select id="cmb_schedule">
+<select id="cmb_schedule" class="simple">
   <option value="Daily"     <% if job[0].schedule == "Daily" %> selected <% end %>>Daily</option>
   <option value="Monday"    <% if job[0].schedule == "Monday" %> selected <% end %>>Monday</option>
   <option value="Tuesday"   <% if job[0].schedule == "Tuesday" %> selected <% end %>>Tuesday</option>
@@ -22,7 +22,7 @@
 <input type="text" id="txt_schedule_time" placeholder="Schedule Time" value="<%= job[0].schedule_time %>" style="margin-bottom: 10px;">
 
 <label for="cmb_active" style="display: block; margin-bottom: 5px;">Active</label>
-<select id="cmb_active">
+<select id="cmb_active" class="simple">
   <option value="1" <% if job[0].active == 1 %> selected <% end %>>On</option>
   <option value="0" <% if job[0].active == 0 %> selected <% end %>>Off</option>
 </select>

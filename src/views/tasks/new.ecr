@@ -1,4 +1,4 @@
-<h3> <a href="#" data-load-link="load" data-link="/jobs">Jobs</a> > Task > New</h3>
+<h3> <a href="#" data-load-link="load" data-link="/jobs">Jobs</a> > <a href="#" data-load-link="load" data-link="/jobs/<%= job_id %>/tasks">Tasks</a> > New</h3>
 
 <label for="txt_task" style="display: block; margin-bottom: 5px;">Task</label>
 <input type="text" id="txt_task" placeholder="Task" style="margin-bottom: 10px;">
@@ -7,7 +7,7 @@
 <input type="text" placeholder="Description" id="txt_description" style="margin-bottom: 10px;">
 
 <label for="cmb_language" style="display: block; margin-bottom: 5px;">Language</label>
-<select id="cmb_language">
+<select id="cmb_language" class="simple">
   <option value="BASH">Bash</option>
   <option value="Python">Python</option>
   <option value="Ruby">Ruby</option>
@@ -18,7 +18,7 @@
 <input type="text" placeholder="Command" id="txt_command" style="margin-bottom: 10px;">
 
 <label for="cmb_active" style="display: block; margin-bottom: 5px;">Active</label>
-<select id="cmb_active">
+<select id="cmb_active" class="simple">
   <option value="1">On</option>
   <option value="0">Off</option>
 </select>

@@ -1,4 +1,4 @@
-<h3> <a href="#" data-load-link="load" data-link="/jobs/<%= task[0].job_id %>/tasks">Jobs</a> > Task > New</h3>
+<h3> <a href="#" data-load-link="load" data-link="/jobs">Jobs</a> > <a href="#" data-load-link="load" data-link="/jobs/<%= task[0].job_id %>/tasks">Tasks</a> > Update</h3>
 
 <label for="txt_task" style="display: block; margin-bottom: 5px;">Task</label>
 <input type="text" id="txt_task" placeholder="Task" value="<%= task[0].task %>" style="margin-bottom: 10px;">
@@ -7,7 +7,7 @@
 <input type="text" id="txt_description" placeholder="Description" value="<%= task[0].task_description %>" style="margin-bottom: 10px;">
 
 <label for="cmb_language" style="display: block; margin-bottom: 5px;">Language</label>
-<select id="cmb_language">
+<select id="cmb_language" class="simple">
   <option value="BASH" <% if task[0].language == "BASH" %> selected <% end %>>BASH</option>
   <option value="Python" <% if task[0].language == "Python" %> selected <% end %>>Python</option>
   <option value="Ruby" <% if task[0].language == "Ruby" %> selected <% end %>>Ruby</option>
@@ -18,7 +18,7 @@
 <input type="text" id="txt_command" placeholder="Command" value="<%= task[0].command %>" style="margin-bottom: 10px;">
 
 <label for="cmb_active" style="display: block; margin-bottom: 5px;">Active</label>
-<select id="cmb_active">
+<select id="cmb_active" class="simple">
   <option value="1" <% if task[0].active == 1 %> selected <% end %>>On</option>
   <option value="0" <% if task[0].active == 0 %> selected <% end %>>Off</option>
 </select>
