@@ -58,25 +58,40 @@ module Controller
     end
 
     def run(job_id : Int32)
+      response_status = ""
+
+      job_status_id = Controller::JobStatus.create(job_id,"Running","")
       puts "Executing Job ID #{job_id}"
+
       # Search for job tasks
       tasks = Controller::Tasks.get_by_job_id(job_id)
       tasks.each do |task|
         command = task.command||""
         puts "Executing Task : #{task.task_description}"
 
-        task_status_id = Controller::TaskStatus.create(job_id,task.id || 0,"Queue","")
+        task_status_id = Controller::TaskStatus.create(job_status_id || 0,job_id,task.id || 0,"Queue","")
+        Controller::JobStatus.update(job_status_id || 0,"Running","Task : #{task.task_description} : Executing")
         
         # Execute task
         status, output = execute_task(command)
 
         response_status = status == 0 ? "Done" : "Failed"
         Controller::TaskStatus.update(task_status_id || 0,response_status,output)
+        Controller::JobStatus.update(job_status_id || 0,"Running","Task : #{task.task_description} : #{response_status}")
 
         puts "Status: #{status}"
         puts "Response: #{output}"
+
+        if status == 0
+          response_status = "Successful"
+        else
+          response_status = "Failed on Task #{task.task_description}"
+        end
+
         break unless status == 0
       end
+      
+      Controller::JobStatus.update(job_status_id || 0,"Done",response_status)
     end
 
     def execute_task(command)
