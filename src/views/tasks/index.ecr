@@ -2,7 +2,7 @@
   <% if tasks.size > 0 %>
   <h3> <span style="color: #0c5df4; cursor: pointer;" data-load-link="load" data-link="/jobs">Jobs</span> > Tasks [<span style="color: #0c5df4"><%= tasks.size %></span>]</h3>
   <div style="margin-bottom: 1rem;">
-    <span style="font-size: 1.2rem;"><%= tasks[0].job %></span><br>
+    <span style="font-size: 1rem; font-weight: 600;"><%= tasks[0].job %></span><br>
     <span style="color: dimgray; font-size: 0.9rem;"><%= tasks[0].job_description %></span>
   </div>
   <table id="tasks_table" class="styled-table">

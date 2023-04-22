@@ -70,3 +70,14 @@ post "/jobs/update" do |env|
     {status: "ERROR", message: "Session expired, need to log in"}.to_json
   end
 end
+
+get "/jobs/status" do |env|
+  if Controller::Application.user_logged(env)
+    job_status = Controller::JobStatus.all()
+    render "src/views/job_status/index.ecr"
+  else
+    error_code = "401"
+    error_message = "Unauthorized access"
+    render "src/views/error_page.ecr"
+  end
+end

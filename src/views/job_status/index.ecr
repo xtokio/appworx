@@ -1,32 +1,32 @@
 <div>
-  <h2>Jobs</h2>
-  <% if jobs.size > 0 %>
-  <h3>Jobs [<span style="color: #0c5df4"><%= jobs.size %></span>]</h3>
+  <h2>Activity</h2>
+  <% if job_status.size > 0 %>
+  <h3>Jobs [<span style="color: #0c5df4"><%= job_status.size %></span>]</h3>
   <table id="jobs_table" class="styled-table">
       <thead>
         <tr>
           <th>ID</th>
           <th>Job</th>
           <th>Description</th>
-          <th>Schedule</th>
-          <th>Time</th>
+          <th>Status</th>
+          <th>Response</th>
           <th>Created at</th>
           <th>Updated at</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-      <% jobs.each do |row|%>
+      <% job_status.each do |row|%>
         <tr>
           <td><%= row.id %></td>
           <td><%= row.job %></td>
           <td><%= row.description %></td>
-          <td><%= row.schedule %></td>
-          <td><%= row.schedule_time %></td>
+          <td><%= row.status %></td>
+          <td><%= row.response %></td>
           <td><%= Time.parse!(row.created_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td><%= Time.parse!(row.updated_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td>
-            <a href="#" data-load-link="load" data-link="/jobs/<%= row.id %>/tasks">Show Tasks</a> / <a href="#" data-load-link="load" data-link="/jobs/update/<%= row.id %>">Update</a> / <a href="#" style="color:red;">Remove</a>
+            <a href="#" data-load-link="load" data-link="/jobs/<%= row.job_id %>/tasks">Show Tasks</a>
           </td>
         </tr>
       <% end %>
@@ -35,8 +35,4 @@
   <% else %>
   <h3>No jobs were found [<span style="color: #0c5df4">0</span>]</h3>
   <% end %>
-  <div style="text-align: right;">
-    <br>
-    <a href="#" id="btn_add" class="btn btn-primary" data-load-link="load" data-link="/jobs/new">Add new Job</a>
-  </div>
 </div>
