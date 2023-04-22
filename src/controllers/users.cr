@@ -14,7 +14,7 @@ module Controller
 
             env.session.bool("is_admin", false)
 
-            records = Model::ConnDB.all(Model::User, Query.where(username: username, password: password))
+            records = Model::ConnDB.all(Model::User, Query.where(username: username, password: password).where(active: 1))
 
             if records.size > 0
                 records.each do |record|
