@@ -22,7 +22,7 @@
           <td><%= row.job %></td>
           <td><%= row.description %></td>
           <td><%= row.status %></td>
-          <td><%= row.response %></td>
+          <td><%= row.response == "Failed" ? "<span style='color: red'>Failed</span>" : "<span style='color: green'>Successful</span>" %></td>
           <td><%= Time.parse!(row.created_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td><%= Time.parse!(row.updated_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td>

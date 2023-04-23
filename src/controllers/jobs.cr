@@ -82,12 +82,6 @@ module Controller
         puts "Status: #{status}"
         puts "Response: #{output}"
 
-        if status == 0
-          response_status = "Successful"
-        else
-          response_status = "Failed on Task #{task.task_description}"
-        end
-
         break unless status == 0
       end
       
