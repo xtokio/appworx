@@ -1,0 +1,12 @@
+<% job_status_tasks.each do |row|%>
+<hr>
+<p>
+  <span style="font-size: 1rem; font-weight: 600;">Task</span> <br> <%= row.task %>
+</p>
+<p>
+  <span style="font-size: 1rem; font-weight: 600;">Status</span> <br> <%= row.status %>
+</p>
+<p>
+  <span style="font-size: 1rem; font-weight: 600;">Response</span> <br> <%= row.response %>
+</p>
+<% end %>

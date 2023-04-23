@@ -81,3 +81,16 @@ get "/jobs/status" do |env|
     render "src/views/error_page.ecr"
   end
 end
+
+get "/jobs/status/:id" do |env|
+  if Controller::Application.user_logged(env)
+    job_status_id = env.params.url["id"].to_i
+    job_status_tasks = Controller::TaskStatus.get_by_job_status_id(job_status_id)
+    
+    render "src/views/job_status/tasks.ecr"
+  else
+    error_code = "401"
+    error_message = "Unauthorized access"
+    render "src/views/error_page.ecr"
+  end
+end

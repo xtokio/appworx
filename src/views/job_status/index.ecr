@@ -26,7 +26,19 @@
           <td><%= Time.parse!(row.created_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td><%= Time.parse!(row.updated_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td>
-            <a href="#" data-load-link="load" data-link="/jobs/<%= row.job_id %>/tasks">Show Tasks</a>
+            <a href="#" data-job-status-id="<%= row.id %>" data-link="/jobs/status/<%= row.id %>" class="breakrow" style="display: flex; align-items: center; gap: 5px;">Show Tasks
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16" style="transition: .5s;">
+                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
+              </svg>
+            </a>
+          </td>
+        </tr>
+        <tr class="datarow">
+          <td colspan="8">
+            <span style="font-size: 1rem; font-weight: 600;"><%= row.job %></span><br>
+            <span style="color: dimgray; font-size: 0.9rem;"><%= row.description %></span>
+            <div id="div_job_status_<%= row.id %>">
+            </div>
           </td>
         </tr>
       <% end %>
@@ -36,3 +48,16 @@
   <h3>No jobs were found [<span style="color: #0c5df4">0</span>]</h3>
   <% end %>
 </div>
+<script>
+  // Expand Table details
+  $(".breakrow").on("click",async function(){
+    let job_status_id = $(this).attr("data-job-status-id");
+    let link = $(this).attr("data-link");
+    await App.load_page(link,"#div_job_status_"+job_status_id).catch(message => App.show_error(message));
+    window.history.pushState({}, null, "/");
+
+    $(this).closest("tr").toggleClass("active-row");
+    $(this).children().toggleClass('rotate');
+    $(this).closest("tr").next("tr").toggle(200);
+  });
+</script>

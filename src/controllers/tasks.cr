@@ -17,7 +17,7 @@ module Controller
       end
 
       def get_by_job_id(job_id : Int32)
-          Model::ConnDB.all(Model::ViewTask, Query.where(active: 1).where(job_id: job_id))
+        Model::ConnDB.all(Model::ViewTask, Query.where(active: 1).where(job_id: job_id))
       end
 
       def create(env)

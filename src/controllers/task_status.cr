@@ -5,7 +5,11 @@ module Controller
     Query = Crecto::Repo::Query
 
     def all()
-      Model::ConnDB.all(Model::TaskStatus)
+      Model::ConnDB.all(Model::ViewTaskStatus)
+    end
+
+    def get_by_job_status_id(job_status_id : Int32)
+      Model::ConnDB.all(Model::ViewTaskStatus, Query.where(job_status_id: job_status_id))
     end
 
     def create(job_status_id : Int32, job_id : Int32, task_id : Int32, status : String, response : String)
