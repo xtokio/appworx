@@ -61,13 +61,13 @@ module Controller
       response_status = ""
 
       job_status_id = Controller::JobStatus.create(job_id,"Running","")
-      puts "Executing Job ID #{job_id}"
+      puts "#{Time.local} : Executing Job ID #{job_id}"
 
       # Search for job tasks
       tasks = Controller::Tasks.get_by_job_id(job_id)
       tasks.each do |task|
         command = task.command||""
-        puts "Executing Task : #{task.task_description}"
+        puts "#{Time.local} : Executing Task : #{task.task_description}"
 
         task_status_id = Controller::TaskStatus.create(job_status_id || 0,job_id,task.id || 0,"Queue","")
         Controller::JobStatus.update(job_status_id || 0,"Running","Task : #{task.task_description} : Executing")
@@ -79,8 +79,8 @@ module Controller
         Controller::TaskStatus.update(task_status_id || 0,response_status,output)
         Controller::JobStatus.update(job_status_id || 0,"Running","Task : #{task.task_description} : #{response_status}")
 
-        puts "Status: #{status}"
-        puts "Response: #{output}"
+        puts "#{Time.local} : Status: #{status}"
+        puts "#{Time.local} : Response: \n\n#{output}"
 
         break unless status == 0
       end
