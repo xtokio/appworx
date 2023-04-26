@@ -16,6 +16,8 @@ dependencies:
   crecto:
     github: xtokio/crecto
     branch: master
+  baked_file_system:
+    github: xtokio/baked_file_system
 
 targets:
   appworx:

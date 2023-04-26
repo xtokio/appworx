@@ -4,29 +4,13 @@ require "kemal-session"
 require "schedule"
 require "sqlite3"
 require "crecto"
+require "baked_file_system"
+require "./base/*"
 require "./routes/*"
 require "./models/*"
 require "./controllers/*"
 
-# Default values
-ENV_HASH = {"PUBLIC_PATH"=>Dir.current + "/public","PORT"=>3000,"DATABASE_PATH"=>Dir.current + "/db/appworx.db"}
-
-# Check .env
-File.each_line(".env") do |line|
-    key = line.split("=")[0]
-    val = line.split("=")[1]
-    if key == "PUBLIC_PATH"
-      ENV_HASH["PUBLIC_PATH"] = val
-    end
-    if key == "PORT"
-      ENV_HASH["PORT"] = val
-    end
-    if key == "DATABASE_PATH"
-      ENV_HASH["DATABASE_PATH"] = val
-    end
-end if File.file?(".env")
-
-public_folder ENV_HASH["PUBLIC_PATH"].to_s
+# public_folder ENV_HASH["PUBLIC_PATH"].to_s
 
 module Appworx
   VERSION = "0.1.0"
@@ -89,4 +73,5 @@ module Appworx
   end
 
 end
+Kemal.config.env = "production"
 Kemal.run(ENV_HASH["PORT"].to_i)

@@ -6,23 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appworx</title>
     <!-- CSS Assets -->
-    <link rel="stylesheet" href="/assets/css/base.css">
-    <link rel="stylesheet" href="/assets/js/vendor/codemirror/lib/codemirror.css"/>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+    <%= FileStorage.css %>
+    </style>
 
-    <!-- JS Assets -->
-    <script src="/assets/js/base.js"></script>
-    <script src="/assets/js/vendor/codemirror/lib/codemirror.js"></script>
-    <script src="/assets/js/vendor/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-    <script src="/assets/js/vendor/codemirror/addon/edit/matchbrackets.js"></script>
-    <script src="/assets/js/vendor/codemirror/mode/xml/xml.js"></script>
-    <script src="/assets/js/vendor/codemirror/mode/javascript/javascript.js"></script>
-
-    <script src="/assets/js/app.js"></script>
-    <script src="/assets/js/main.js"></script>
-
+    <script>
+    <%= FileStorage.js %>
+    </script>
   </head>
-
 
   <body id="body-pd" class="body-pd">
     <div id="navbar" class="l-navbar expander">
@@ -32,7 +23,13 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-diamond" style="margin-right: 21px;" viewBox="0 0 16 16">
                       <path d="M7.987 16a1.526 1.526 0 0 1-1.07-.448L.45 9.082a1.531 1.531 0 0 1 0-2.165L6.917.45a1.531 1.531 0 0 1 2.166 0l6.469 6.468A1.526 1.526 0 0 1 16 8.013a1.526 1.526 0 0 1-.448 1.07l-6.47 6.469A1.526 1.526 0 0 1 7.988 16zM7.639 1.17 4.766 4.044 8 7.278l3.234-3.234L8.361 1.17a.51.51 0 0 0-.722 0zM8.722 8l3.234 3.234 2.873-2.873c.2-.2.2-.523 0-.722l-2.873-2.873L8.722 8zM8 8.722l-3.234 3.234 2.873 2.873c.2.2.523.2.722 0l2.873-2.873L8 8.722zM7.278 8 4.044 4.766 1.17 7.639a.511.511 0 0 0 0 .722l2.874 2.873L7.278 8z"/>
                   </svg>
-                  <img src="/assets/img/appworx.svg" style="height: 40px;"/>
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 380 120" style="enable-background:new 0 0 300 120;" xml:space="preserve" height="40">
+                    <style type="text/css">
+                      .logo_white{fill:#fff;font-family:'TrebuchetMS-Bold';font-size:85px;}
+                    </style>
+                    <text transform="matrix(1 0 0 1 6.9122 79.5098)" class="logo_white">appworx</text>
+                  </svg>
+                  <!-- <img src="/assets/img/appworx.svg" style="height: 40px;"/> -->
               </div>
               <div class="nav__list">
                 <div  class="nav__link collapse">
@@ -67,9 +64,7 @@
                     <span class="nav__name">Finished</span>
                   </a>
                   
-
-                  <% if env.session.bool("is_admin") %>
-                  
+                  <% if env.session.bool("is_admin") %>                  
                   <div class="nav__link collapse">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16" style="color: var(--theme-bg-color); margin-left: -4px;">
                           <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -199,7 +194,13 @@
                   <ul>
                   <li>
                     <a href="/">
-                      <img src="/assets/img/appworx_black.svg" style="height: 50px;">
+                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 380 120" style="enable-background:new 0 0 300 120;" xml:space="preserve" height="50">
+                        <style type="text/css">
+                          .logo_black{fill:#000;font-family:'TrebuchetMS-Bold';font-size:85px;}
+                        </style>
+                        <text transform="matrix(1 0 0 1 6.9122 79.5098)" class="logo_black">appworx</text>
+                      </svg>
+                      <!-- <img src="/assets/img/appworx_black.svg" style="height: 50px;"> -->
                     </a>
                   </li>
                   </ul>

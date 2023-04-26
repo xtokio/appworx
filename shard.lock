@@ -4,6 +4,10 @@ shards:
     git: https://github.com/sija/backtracer.cr.git
     version: 1.2.2
 
+  baked_file_system:
+    git: https://github.com/xtokio/baked_file_system.git
+    version: 0.1.0+git.commit.40dac8f918b562a3c5a6c51ee0e5a07337e6445c
+
   crecto:
     git: https://github.com/xtokio/crecto.git
     version: 0.11.5+git.commit.805eee2c32833bd2df16070016f6c5fc977ae968
