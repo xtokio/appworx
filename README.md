@@ -13,16 +13,24 @@ User: `admin`
 <br>
 Pass: `admin`
 <br><br>
-![Login](screenshots/login.png)
+![Login](screenshots/screenshot_01.png)
+![Login](screenshots/screenshot_02.png)
 
 Dashboard > Jobs
-![Jobs](screenshots/jobs.png)
+![Jobs](screenshots/screenshot_03.png)
 
 Dashboard > Tasks
-![Tasks](screenshots/tasks.png)
+![Tasks](screenshots/screenshot_04.png)
+
+Dashboard > Finished
+![Finished](screenshots/screenshot_05.png)
+
+Dashboard > Finished > Details
+![Finished_Details_Failed](screenshots/screenshot_06.png)
+![Finished_Details_Success](screenshots/screenshot_07.png)
 
 Settings > Users
-![Users](screenshots/users.png)
+![Users](screenshots/screenshot_08.png)
 
 
 ## Installation
@@ -37,7 +45,7 @@ Settings > Users
 ## Usage
 
 ### SQLite3
-Create a new `Job` in the `jobs` table and populate tasks in the `tasks` table. There are a couple of examples in the SQLite database to execute `Bash`, `Ruby`, `Python` and `Java` ( need to have those code languages installed in your system )
+There are a couple of examples in the SQLite database to execute `Bash`, `Ruby`, `Python` and `Java` ( need to have those code languages installed in your system )
 
 ## Contributing
 
