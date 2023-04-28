@@ -5,7 +5,7 @@ module Controller
     Query = Crecto::Repo::Query
 
     def all()
-      Model::ConnDB.all(Model::ViewJobStatus)
+      Model::ConnDB.all(Model::ViewJobStatus, Query.order_by("id DESC"))
     end
 
     def get_by_id(id : Int32)

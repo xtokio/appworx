@@ -9,7 +9,7 @@ module Controller
     end
 
     def active()
-      Model::ConnDB.all(Model::Job, Query.where(active: 1))
+      Model::ConnDB.all(Model::Job, Query.where(active: 1).order_by("id DESC"))
     end
 
     def get_by_id(id : Int32)
