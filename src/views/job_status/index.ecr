@@ -5,7 +5,7 @@
   <table id="jobs_table" class="styled-table">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>#</th>
           <th>Job</th>
           <th>Description</th>
           <th>Status</th>
@@ -16,9 +16,9 @@
         </tr>
       </thead>
       <tbody>
-      <% job_status.each do |row|%>
+      <% job_status.each_with_index(1) do |row,index|%>
         <tr>
-          <td><%= row.id %></td>
+          <td><%= index %></td>
           <td><%= row.job %></td>
           <td><%= row.description %></td>
           <td><%= row.status %></td>

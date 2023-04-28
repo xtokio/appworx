@@ -8,7 +8,7 @@
   <table id="tasks_table" class="styled-table">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>#</th>
           <th>Task</th>
           <th>Description</th>
           <th>Language</th>
@@ -19,9 +19,9 @@
         </tr>
       </thead>
       <tbody>
-      <% tasks.each do |row|%>
+      <% tasks.each_with_index(1) do |row,index|%>
         <tr>
-          <td><%= row.id %></td>
+          <td><%= index %></td>
           <td><%= row.task %></td>
           <td><%= row.task_description %></td>
           <td><%= row.language %></td>
