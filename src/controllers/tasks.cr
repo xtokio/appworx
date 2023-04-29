@@ -63,5 +63,10 @@ module Controller
         {status: "OK",id: id, message: "Task : #{id} was updated."}.to_json
       end
 
+      def delete(id : Int32)
+        table_record = Model::ConnDB.get!(Model::Task, id)
+        Model::ConnDB.delete(table_record)
+      end
+
     end
 end

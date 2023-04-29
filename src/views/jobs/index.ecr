@@ -26,7 +26,7 @@
           <td><%= Time.parse!(row.created_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td><%= Time.parse!(row.updated_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td>
-            <a href="#" data-load-link="load" data-link="/jobs/<%= row.id %>/tasks">Show Tasks</a> / <a href="#" data-load-link="load" data-link="/jobs/update/<%= row.id %>">Update</a> / <a href="#" style="color:red;">Remove</a>
+            <a href="#" data-load-link="load" data-link="/jobs/<%= row.id %>/tasks">Show Tasks</a> / <a href="#" data-load-link="load" data-link="/jobs/update/<%= row.id %>">Update</a> / <a href="#" class="lnk_remove_job" data-id="<%= row.id %>" data-job="<%= row.job %>" style="color:red;">Remove</a>
           </td>
         </tr>
       <% end %>
@@ -40,3 +40,18 @@
     <a href="#" id="btn_add" class="btn btn-primary" data-load-link="load" data-link="/jobs/new">Add new Job</a>
   </div>
 </div>
+<script>
+$(".lnk_remove_job").on("click", async function(e){
+  e.preventDefault();
+  let id  = $(this).attr("data-id");
+  let job = $(this).attr("data-job");
+  App.show_remove(job,"Are you sure you want to delete this job?",async function(){
+    let response = await App.delete("/jobs/delete/"+id).catch(message => App.show_error(message));
+    let data = await response.json();
+    if(data.status == "OK")
+      await App.load_page("/jobs").catch(message => App.show_error(message));
+    else
+      App.show_error("Delete error.");
+  });
+});
+</script>

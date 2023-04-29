@@ -94,3 +94,15 @@ get "/jobs/status/:id" do |env|
     render "src/views/error_page.ecr"
   end
 end
+
+delete "/jobs/delete/:id" do |env|
+  if Controller::Application.user_logged(env)
+    job_id = env.params.url["id"].to_i
+    Controller::Jobs.delete(job_id)
+    {status: "OK", message: "Job # #{job_id} deleted"}.to_json
+  else
+    error_code = "401"
+    error_message = "Unauthorized access"
+    render "src/views/error_page.ecr"
+  end
+end

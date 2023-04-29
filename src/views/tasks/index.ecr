@@ -29,7 +29,7 @@
           <td><%= Time.parse!(row.created_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td><%= Time.parse!(row.updated_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
           <td>
-            <a href="#" data-load-link="load" data-link="/tasks/update/<%= row.id %>">Update</a> | <a href="#" style="color: red">Remove</a>
+            <a href="#" data-load-link="load" data-link="/tasks/update/<%= row.id %>">Update</a> | <a href="#" class="lnk_remove_task" data-id="<%= row.id %>" data-job-id="<%= row.job_id %>" data-task="<%= row.task %>" style="color: red">Remove</a>
           </td>
         </tr>
       <% end %>
@@ -43,3 +43,19 @@
   </div>
   <% end %>
 </div>
+<script>
+$(".lnk_remove_task").on("click", async function(e){
+  e.preventDefault();
+  let id     = $(this).attr("data-id");
+  let job_id = $(this).attr("data-job-id");
+  let task   = $(this).attr("data-task");
+  App.show_remove(task,"Are you sure you want to delete this task?",async function(){
+    let response = await App.delete("/tasks/delete/"+id).catch(message => App.show_error(message));
+    let data = await response.json();
+    if(data.status == "OK")
+      await App.load_page("/jobs/"+job_id+"/tasks").catch(message => App.show_error(message));
+    else
+      App.show_error("Delete error.");
+  });
+});
+</script>

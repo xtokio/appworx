@@ -14,6 +14,21 @@ class App
         body: JSON.stringify(params)
         });
     }
+
+    static delete(url,params={})
+    {
+        var token = $('meta[name="csrf-token"]').attr('content');
+        return fetch(url,{
+        method: 'DELETE',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': token
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify(params)
+        });
+    }
     
     static load_page(page,element="#main",callback=function(){})
     {
@@ -233,6 +248,27 @@ class App
         })
         .then((Ok) => {
             if (Ok) 
+            {
+                callback();
+            }
+        });
+    }
+
+    static show_remove(title,message,callback=function(){})
+    {
+        swal({
+            title: title,
+            html: message,
+            type: "warning",
+            buttonsStyling: !1,
+            showCancelButton: true,
+            confirmButtonClass: "btn btn-primary margin-right-2rem",
+            cancelButtonClass: "btn btn-danger",
+            width: 650
+        })
+        .then((Ok) => {
+            console.log(Ok);
+            if (!Ok.dismiss) 
             {
                 callback();
             }

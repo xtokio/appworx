@@ -1536,6 +1536,10 @@ textarea:focus {
   padding: 30px 0px;
 }
 
+.margin-right-2rem {
+  margin-right: 2rem;
+}
+
 * {
   /* user-select: none; */
   -webkit-tap-highlight-color: transparent;

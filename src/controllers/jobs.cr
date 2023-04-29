@@ -39,7 +39,7 @@ module Controller
 
     def update(env)
       id            = env.params.json["id"].as(String)
-      job   = env.params.json["job"].as(String)
+      job           = env.params.json["job"].as(String)
       description   = env.params.json["description"].as(String)
       schedule      = env.params.json["schedule"].as(String)
       schedule_time = env.params.json["schedule_time"].as(String)
@@ -55,6 +55,11 @@ module Controller
       changeset = Model::ConnDB.update(table_record)
 
       {status: "OK",id: id, message: "Job : #{id} was updated."}.to_json
+    end
+
+    def delete(id : Int32)
+      table_record = Model::ConnDB.get!(Model::Job, id)
+      Model::ConnDB.delete(table_record)
     end
 
     def run(job_id : Int32)

@@ -47,3 +47,15 @@ post "/tasks/update" do |env|
     {status: "ERROR", message: "Session expired, need to log in"}.to_json
   end
 end
+
+delete "/tasks/delete/:id" do |env|
+  if Controller::Application.user_logged(env)
+    task_id = env.params.url["id"].to_i
+    Controller::Tasks.delete(task_id)
+    {status: "OK", message: "Task # #{task_id} deleted"}.to_json
+  else
+    error_code = "401"
+    error_message = "Unauthorized access"
+    render "src/views/error_page.ecr"
+  end
+end
