@@ -23,7 +23,7 @@
   <% end %>
 </div>
 <script>
-  let job_status = [];
+  var job_status = [];
   <% job_status.each_with_index(1) do |row,index|%>
   job_status.push({"index":<%= index %>,"id":<%= row.id %>,"job_id":<%= row.job_id %>,"job":"<%= row.job %>","description":"<%= row.description %>","status":"<%= row.status %>","response":"<%= row.response == "Failed" ? "<span style='color: red'>Failed</span>" : "<span style='color: green'>Successful</span>" %>","created_at":"<%= Time.parse!(row.created_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %>","updated_at":"<%= Time.parse!(row.updated_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %>"});
   <% end %>
