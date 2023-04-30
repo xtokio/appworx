@@ -16,32 +16,6 @@
         </tr>
       </thead>
       <tbody>
-      <% job_status.each_with_index(1) do |row,index|%>
-        <tr>
-          <td><%= index %></td>
-          <td><%= row.job %></td>
-          <td><%= row.description %></td>
-          <td><%= row.status %></td>
-          <td><%= row.response == "Failed" ? "<span style='color: red'>Failed</span>" : "<span style='color: green'>Successful</span>" %></td>
-          <td><%= Time.parse!(row.created_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
-          <td><%= Time.parse!(row.updated_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %></td>
-          <td>
-            <a href="#" data-job-status-id="<%= row.id %>" data-link="/jobs/status/<%= row.id %>" class="breakrow" style="display: flex; align-items: center; gap: 5px;">Show Tasks
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16" style="transition: .5s;">
-                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
-              </svg>
-            </a>
-          </td>
-        </tr>
-        <tr class="datarow">
-          <td colspan="8">
-            <span style="font-size: 1rem; font-weight: 600;"><%= row.job %></span><br>
-            <span style="color: dimgray; font-size: 0.9rem;"><%= row.description %></span>
-            <div id="div_job_status_<%= row.id %>">
-            </div>
-          </td>
-        </tr>
-      <% end %>
       </tbody>
   </table>
   <% else %>
@@ -49,15 +23,63 @@
   <% end %>
 </div>
 <script>
-  // Expand Table details
-  $(".breakrow").on("click",async function(){
-    let job_status_id = $(this).attr("data-job-status-id");
-    let link = $(this).attr("data-link");
-    await App.load_page(link,"#div_job_status_"+job_status_id).catch(message => App.show_error(message));
-    window.history.pushState({}, null, "/");
+  let job_status = [];
+  <% job_status.each_with_index(1) do |row,index|%>
+  job_status.push({"index":<%= index %>,"id":<%= row.id %>,"job_id":<%= row.job_id %>,"job":"<%= row.job %>","description":"<%= row.description %>","status":"<%= row.status %>","response":"<%= row.response == "Failed" ? "<span style='color: red'>Failed</span>" : "<span style='color: green'>Successful</span>" %>","created_at":"<%= Time.parse!(row.created_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %>","updated_at":"<%= Time.parse!(row.updated_at.to_s, "%Y-%m-%d %H:%M:%S %z").to_local.to_s("%Y-%m-%d %H:%M:%S %P") %>"});
+  <% end %>
 
-    $(this).closest("tr").toggleClass("active-row");
-    $(this).children().toggleClass('rotate');
-    $(this).closest("tr").next("tr").toggle(200);
+  new Pagination({
+    element:"jobs_table",
+    data:job_status,
+    pageSize:15,
+    template: function(data){
+      // Access to current page pagination data
+      document.querySelector(`#jobs_table tbody`).innerHTML = "";
+      for (var i = 0; i < data.length; i++) 
+      {
+        var row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${data[i].index}</td>
+          <td>${data[i].job}</td>
+          <td>${data[i].description}</td>
+          <td>${data[i].status}</td>
+          <td>${data[i].response}</td>
+          <td>${data[i].created_at}</td>
+          <td>${data[i].updated_at}</td>
+          <td>
+            <a href="#" data-job-status-id="${data[i].id}" data-link="/jobs/status/${data[i].id}" class="breakrow" style="display: flex; align-items: center; gap: 5px;">Show Tasks
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16" style="transition: .5s;">
+                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
+              </svg>
+            </a>
+          </td>
+        `;
+        document.querySelector(`#jobs_table tbody`).appendChild(row);
+
+        var datarow = document.createElement("tr");
+        datarow.innerHTML = `
+          <td colspan="8">
+            <span style="font-size: 1rem; font-weight: 600;">${data[i].job}</span><br>
+            <span style="color: dimgray; font-size: 0.9rem;">${data[i].description}</span>
+            <div id="div_job_status_${data[i].id}">
+            </div>
+          </td>
+        `;
+        datarow.className = "datarow";
+        document.querySelector(`#jobs_table tbody`).appendChild(datarow);
+      }
+
+      // Expand Table details
+      $(".breakrow").on("click",async function(){
+        let job_status_id = $(this).attr("data-job-status-id");
+        let link = $(this).attr("data-link");
+        await App.load_page(link,"#div_job_status_"+job_status_id).catch(message => App.show_error(message));
+        window.history.pushState({}, null, "/");
+
+        $(this).closest("tr").toggleClass("active-row");
+        $(this).children().toggleClass('rotate');
+        $(this).closest("tr").next("tr").toggle(200);
+      });
+    }
   });
 </script>
