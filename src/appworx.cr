@@ -64,7 +64,15 @@ module Appworx
   end
 
   get "/" do |env|
+    puts "Rendering /"
+    puts Controller::Application.user_logged(env)
+    if env.session.int?("login")
+      puts "Return true"
+      puts env.session.int("login")
+    end
+
     if Controller::Application.user_logged(env)
+      puts "Rendering user logged!"
       jobs = Controller::Jobs.active()
       render "src/views/jobs/index.ecr", "src/layouts/base.ecr"
     else

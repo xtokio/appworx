@@ -10,7 +10,7 @@ shards:
 
   crecto:
     git: https://github.com/xtokio/crecto.git
-    version: 0.11.5+git.commit.805eee2c32833bd2df16070016f6c5fc977ae968
+    version: 0.12.1
 
   db:
     git: https://github.com/crystal-lang/crystal-db.git

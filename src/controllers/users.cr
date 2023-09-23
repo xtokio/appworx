@@ -9,25 +9,26 @@ module Controller
         end
 
         def login(env)
-            username = env.params.json["username"].as(String)
-            password = env.params.json["password"].as(String)
+          username = env.params.json["username"].as(String)
+          password = env.params.json["password"].as(String)
+          
+          env.session.bool("is_admin", false)
 
-            env.session.bool("is_admin", false)
+          records = Model::ConnDB.all(Model::User, Query.where(username: username, password: password).where(active: 1))
 
-            records = Model::ConnDB.all(Model::User, Query.where(username: username, password: password).where(active: 1))
+          if records.size > 0
+            records.each do |record|
+              env.session.int("login", record.id.to_s.to_i)
+              env.session.string("user_id", record.id.to_s)
+              env.session.string("user_name", record.name.to_s)
+              env.session.string("account_type", record.account_type.to_s)
 
-            if records.size > 0
-                records.each do |record|
-                    env.session.int("login", record.id.to_s.to_i)
-                    env.session.string("user_id", record.id.to_s)
-                    env.session.string("user_name", record.name.to_s)
-                    env.session.string("account_type", record.account_type.to_s)
-
-                    if record.account_type.to_s == "Administrator"
-                        env.session.bool("is_admin", true)
-                    end
-                end
+              if record.account_type.to_s == "Administrator"
+                env.session.bool("is_admin", true)
+              end
             end
+          end
+          puts "Users::Login #{env.session.int("login")}"
         end
 
         def get_by_id(id : String)
