@@ -12,7 +12,7 @@ module Controller
       Model::ConnDB.all(Model::ViewTaskStatus, Query.where(job_status_id: job_status_id))
     end
 
-    def create(job_status_id : Int32, job_id : Int32, task_id : Int32, status : String, response : String)
+    def create(job_status_id : Int32, job_id : Int32, task_id : (Int32 | Nil), status : String, response : String)
       
       table_record = Model::TaskStatus.new
       table_record.job_status_id   = job_status_id
@@ -22,7 +22,7 @@ module Controller
       table_record.response = response
       changeset = Model::ConnDB.insert(table_record)
 
-      changeset.instance.id
+      changeset.instance.id || 0
     end
 
     def update(id : Int32, status : String, response : String)

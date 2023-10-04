@@ -24,7 +24,7 @@ module Controller
       table_record.response = response
       changeset = Model::ConnDB.insert(table_record)
 
-      changeset.instance.id
+      changeset.instance.id || 0
     end
 
     def update(id : Int32, status : String, response : String)

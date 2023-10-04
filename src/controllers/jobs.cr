@@ -74,15 +74,15 @@ module Controller
         command = task.command||""
         puts "#{Time.local} : Executing Task : #{task.task_description}"
 
-        task_status_id = Controller::TaskStatus.create(job_status_id || 0,job_id,task.id || 0,"Queue","")
-        Controller::JobStatus.update(job_status_id || 0,"Running","Task : #{task.task_description} : Executing")
+        task_status_id = Controller::TaskStatus.create(job_status_id,job_id,task.id,"Queue","")
+        Controller::JobStatus.update(job_status_id,"Running","Task : #{task.task_description} : Executing")
         
         # Execute task
         status, output = execute_task(command)
 
         response_status = status == 0 ? "Done" : "Failed"
-        Controller::TaskStatus.update(task_status_id || 0,response_status,output)
-        Controller::JobStatus.update(job_status_id || 0,"Running","Task : #{task.task_description} : #{response_status}")
+        Controller::TaskStatus.update(task_status_id,response_status,output)
+        Controller::JobStatus.update(job_status_id,"Running","Task : #{task.task_description} : #{response_status}")
 
         puts "#{Time.local} : Status: #{status}"
         puts "#{Time.local} : Response: \n\n#{output}"
@@ -90,7 +90,7 @@ module Controller
         break unless status == 0
       end
       
-      Controller::JobStatus.update(job_status_id || 0,"Done",response_status)
+      Controller::JobStatus.update(job_status_id,"Done",response_status)
     end
 
     def execute_task(command)
